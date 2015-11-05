@@ -1,5 +1,22 @@
 #include "escarg_private.h"
 
+char *
+_escarg_windows_next_delim_find(const char *s)
+{
+   char *p1,
+        *p2;
+
+   p1 = strchr(s, '/');
+   p2 = strchr(s, '\\');
+
+   if (!p1) return p2;
+   if (!p2) return p1;
+
+   if ((p2-s) > (p1-s))
+     return p1;
+   return p2;
+}
+
 int
 _escarg_windows_string_has_space(const char *s,
                                size_t l)
@@ -26,12 +43,7 @@ _escarg_windows_escape_string(const char *dir)
    EINA_SAFETY_ON_NULL_RETURN_VAL(s, NULL);
 
    p = s;
-   pb = strchr(dir, '/');
-   if (!pb)
-     {
-        delim = '\\';
-        pb = strchr(dir, '\\');
-     }
+   pb = _escarg_windows_next_delim_find(dir);
    EINA_SAFETY_ON_NULL_RETURN_VAL(pb, NULL);
 
    if (pb != dir)
@@ -44,13 +56,14 @@ _escarg_windows_escape_string(const char *dir)
    while (1)
      {
         size_t ld;
-        pb = strchr(pb, delim);
+
+        pb = _escarg_windows_next_delim_find(pb);
         EINA_SAFETY_ON_NULL_RETURN_VAL(pb, NULL);
 
 first_run:
-        pe = strchr(pb+1, delim);
+        pe = _escarg_windows_next_delim_find(pb+1);
         ld = pe ? pe-pb : (dir+l) - (pb);
-        *(p++) = delim;
+        *(p++) = *pb;
 
         r = _escarg_windows_string_has_space(pb, ld);
         if (r) *(p++) = '"';
@@ -61,7 +74,7 @@ first_run:
         if (r) *(p++) = '"';
         if (!pe) break;
 
-        *(p) = delim;
+        *(p) = *pe;
         pb = pe;
         if (*(pb+1) == 0) break;
      }
