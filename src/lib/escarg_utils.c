@@ -26,7 +26,7 @@ escarg_utils_escape(Escaping_Function func,
              *esc;
 
         if (!pp) pp = fmt + fmtlen;
-        if(pp - p > 1)
+        if(pp - p)
            EINA_SAFETY_ON_FALSE_GOTO(eina_strbuf_append_length(buf, p, pp - p), err);
         if (*pp != '%') break;  /* no more fmt strings */
 
