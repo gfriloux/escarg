@@ -35,8 +35,7 @@ _escarg_windows_escape_string(const char *dir)
    char *s,
         *p,
         *pb,
-        *pe,
-        delim = '/';
+        *pe;
 
    l = strlen(dir);
    s = calloc(1, l * 2);
