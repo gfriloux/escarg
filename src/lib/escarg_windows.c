@@ -63,6 +63,7 @@ first_run:
         pe = _escarg_windows_next_delim_find(pb+1);
         ld = pe ? pe-pb : (dir+l) - (pb);
         *(p++) = *pb;
+        if (*pb == '\\') { *(p++) = '\\'; }
 
         r = _escarg_windows_string_has_space(pb, ld);
         if (r) *(p++) = '"';
