@@ -1,3 +1,5 @@
+#ifndef ESCARG_H
+#define ESCARG_H
 typedef enum _Escarg_Mode
 {
    ESCARG_MODE_BASH,
@@ -8,3 +10,5 @@ typedef enum _Escarg_Mode
 int escarg_init(void);
 int escarg_shutdown(void);
 char * escarg(Escarg_Mode mode, const char *fmt, ...);
+char * escarg_cmd(Escarg_Mode mode, const char *app, const char *args, ...);
+#endif

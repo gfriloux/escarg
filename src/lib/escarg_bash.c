@@ -1,10 +1,11 @@
 #include "escarg_private.h"
 
 char *
-_escarg_bash_escape_string(const char *s)
+_escarg_bash_escape_string(
+   const char *s)
 {
-   char *e,
-        *p;
+   char *e;
+   char *p;
    unsigned int i;
 
    e = calloc(1, strlen(s) * 2 + 3 + 1);
@@ -30,57 +31,58 @@ _escarg_bash_escape_string(const char *s)
    *p = '\'';
    return e;
 }
-
 char *
-_escarg_bash_escape(Escarg_Type type,
-                    void *data)
+_escarg_bash_escape(
+   Escarg_Type type,
+   void       *data)
 {
-   switch(type)
+   switch (type)
      {
       case ESCARG_TYPE_DOUBLE:
         {
-           double *d = (double *)data;
+           double *d = (double*)data;
            return gstring_strdupf("%f", *d);
         }
       case ESCARG_TYPE_UNSIGNED_LONG_LONG_INT:
         {
-           unsigned long long int *i = (unsigned long long int *)data;
+           unsigned long long int *i = (unsigned long long int*)data;
            return gstring_strdupf("%llu", *i);
         }
       case ESCARG_TYPE_UNSIGNED_LONG_INT:
         {
-           unsigned long int *i = (unsigned long int *)data;
+           unsigned long int *i = (unsigned long int*)data;
            return gstring_strdupf("%lu", *i);
         }
       case ESCARG_TYPE_UNSIGNED_INT:
         {
-           unsigned int *i = (unsigned int *)data;
+           unsigned int *i = (unsigned int*)data;
            return gstring_strdupf("%u", *i);
         }
       case ESCARG_TYPE_LONG_LONG_INT:
         {
-           long long int *i = (long long int *)data;
+           long long int *i = (long long int*)data;
            return gstring_strdupf("%lli", *i);
         }
       case ESCARG_TYPE_LONG_INT:
         {
-           long int *i = (long int *)data;
+           long int *i = (long int*)data;
            return gstring_strdupf("%li", *i);
         }
       case ESCARG_TYPE_INT:
         {
-           int *i = (int *)data;
+           int *i = (int*)data;
            return gstring_strdupf("%i", *i);
         }
       case ESCARG_TYPE_STRING:
         {
-           char *s = (char *)data;
+           char *s = (char*)data;
            return _escarg_bash_escape_string(s);
         }
       case ESCARG_TYPE_CHAR:
         {
-           char *c = (char *)data;
+           char *c = (char*)data;
            if (*c == '\'') return strdup("$'\\''");
+
            return gstring_strdupf("$'%c'", *c);
         }
       default:
@@ -92,10 +94,10 @@ _escarg_bash_escape(Escarg_Type type,
 
    return NULL;
 }
-
 char *
-escarg_bash(const char *fmt,
-            va_list args)
+escarg_bash(
+   const char *fmt,
+   va_list     args)
 {
    return escarg_utils_escape(_escarg_bash_escape, fmt, args);
 }
