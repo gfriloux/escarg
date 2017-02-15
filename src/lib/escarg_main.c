@@ -46,7 +46,7 @@ escarg_cmd(
          _CONSUME_STRING(s, buf, free_buf);
          break;
       case ESCARG_MODE_WINDOWS:
-         s = gstring_strdupf("\"%s\" ", app);
+         s = escarg_utils_strdupf("\"%s\" ", app);
          _CONSUME_STRING(s, buf, free_buf);
 
          s = escarg_windows(args, vargs);

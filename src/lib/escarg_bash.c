@@ -41,37 +41,37 @@ _escarg_bash_escape(
       case ESCARG_TYPE_DOUBLE:
         {
            double *d = (double*)data;
-           return gstring_strdupf("%f", *d);
+           return escarg_utils_strdupf("%f", *d);
         }
       case ESCARG_TYPE_UNSIGNED_LONG_LONG_INT:
         {
            unsigned long long int *i = (unsigned long long int*)data;
-           return gstring_strdupf("%llu", *i);
+           return escarg_utils_strdupf("%llu", *i);
         }
       case ESCARG_TYPE_UNSIGNED_LONG_INT:
         {
            unsigned long int *i = (unsigned long int*)data;
-           return gstring_strdupf("%lu", *i);
+           return escarg_utils_strdupf("%lu", *i);
         }
       case ESCARG_TYPE_UNSIGNED_INT:
         {
            unsigned int *i = (unsigned int*)data;
-           return gstring_strdupf("%u", *i);
+           return escarg_utils_strdupf("%u", *i);
         }
       case ESCARG_TYPE_LONG_LONG_INT:
         {
            long long int *i = (long long int*)data;
-           return gstring_strdupf("%lli", *i);
+           return escarg_utils_strdupf("%lli", *i);
         }
       case ESCARG_TYPE_LONG_INT:
         {
            long int *i = (long int*)data;
-           return gstring_strdupf("%li", *i);
+           return escarg_utils_strdupf("%li", *i);
         }
       case ESCARG_TYPE_INT:
         {
            int *i = (int*)data;
-           return gstring_strdupf("%i", *i);
+           return escarg_utils_strdupf("%i", *i);
         }
       case ESCARG_TYPE_STRING:
         {
@@ -83,7 +83,7 @@ _escarg_bash_escape(
            char *c = (char*)data;
            if (*c == '\'') return strdup("$'\\''");
 
-           return gstring_strdupf("$'%c'", *c);
+           return escarg_utils_strdupf("$'%c'", *c);
         }
       default:
         {

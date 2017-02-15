@@ -1,7 +1,6 @@
 #include <Escarg.h>
 
 #include <Eina.h>
-#include <Gstring.h>
 
 extern int _escarg_log_dom_global;
 
@@ -30,3 +29,4 @@ char * escarg_bash(const char *fmt, va_list args);
 char * escarg_windows(const char *fmt, va_list args);
 char * escarg_posix(const char *fmt, va_list args);
 char * escarg_utils_escape(Escaping_Function func, const char *fmt, va_list args);
+char * escarg_utils_strdupf(const char *s, ...);
