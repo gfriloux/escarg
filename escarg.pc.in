@@ -6,6 +6,6 @@ includedir=@includedir@
 Name: escarg
 Description: a C Library to make argument escaping easier to manage!
 Version: @VERSION@
-Libs: -L${libdir} -lgotham
+Libs: -L${libdir}
 Requires.private: @ESCARG_REQUIRES@
 Cflags: -I${includedir}
